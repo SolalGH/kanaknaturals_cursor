@@ -8,10 +8,10 @@ class MyPassiveProvider extends ChangeNotifier {
     const Offset(50, 260),
 
     // Colonne 2
-    const Offset(599.5, 60),
-    const Offset(599, 116),
-    const Offset(599, 174.5),
-    const Offset(599, 231),
+    const Offset(599.5, 60.75),
+    const Offset(599.5, 117.5),
+    const Offset(599.5, 174.25),
+    const Offset(599.5, 232),
   ];
 
   List<Offset> get offsetList => _offsetList;
