@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:kanaknaturals_cursor/utilities/my_active_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -72,18 +73,13 @@ class _MyTextState extends State<MyText> with TickerProviderStateMixin {
             .setActiveItem(null);
       },
       cursor: SystemMouseCursors.click,
-      child: ClipRRect(
-        child: Container(
-          alignment: Alignment.centerRight,
-          width: widget.hasDot ? widget.width + 25 : widget.width,
-          height: widget.underlineOffset + 2,
-          // color: Colors.green,
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              // Points (si il y en a un)
-              if (widget.hasDot)
-                const Positioned(
+      child: Row(
+        children: [
+          // Points (si il y en a un)
+          if (widget.hasDot)
+            const Row(
+              children: [
+                Positioned(
                   top: 9,
                   left: -26,
                   child: Icon(
@@ -92,32 +88,45 @@ class _MyTextState extends State<MyText> with TickerProviderStateMixin {
                     size: 10,
                   ),
                 ),
-
-              // Texte
-              Stack(
+                Gap(10),
+              ],
+            ),
+          ClipRRect(
+            child: Container(
+              alignment: Alignment.centerRight,
+              width: widget.hasDot ? widget.width : widget.width,
+              height: widget.underlineOffset + 2,
+              // color: Colors.green,
+              child: Stack(
+                clipBehavior: Clip.none,
                 children: [
-                  Text(
-                    widget.text,
-                    style: widget.textStyle.copyWith(
-                      color: _colorAnimation.value,
-                    ),
+                  // Texte
+                  Stack(
+                    children: [
+                      Text(
+                        widget.text,
+                        style: widget.textStyle.copyWith(
+                          color: _colorAnimation.value,
+                        ),
+                      ),
+                    ],
                   ),
+
+                  // Underline (onHover animation)
+                  Positioned(
+                    top: widget.underlineOffset,
+                    left: _underlineAnimation.value,
+                    child: Container(
+                      width: widget.width,
+                      height: 1,
+                      color: Colors.orange,
+                    ),
+                  )
                 ],
               ),
-
-              // Underline (onHover animation)
-              Positioned(
-                top: widget.underlineOffset,
-                left: _underlineAnimation.value,
-                child: Container(
-                  width: widget.width,
-                  height: 1,
-                  color: Colors.orange,
-                ),
-              )
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
